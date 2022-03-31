@@ -1,5 +1,6 @@
 const yargs = require('yargs');
-const commands = require('./commands.js')
+const commands = require('./commands.js'); 
+const chalk = require('chalk');
 //defining properties for cli
 
 let command = yargs.argv._[0]; 
@@ -21,5 +22,11 @@ else if(command == 'remove'){
     }
 }
 else if(command == 'list'){
-    commands.list(title);
+    commands.list();
+}
+else if(command == 'read'){
+    commands.read(title);
+}
+else{
+    console.log(chalk.red('Unknown command'));
 }

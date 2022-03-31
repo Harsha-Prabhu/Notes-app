@@ -1,6 +1,7 @@
 const fs = require('fs');
 const { title } = require('process');
 const file = "notes.json";
+const chalk = require('chalk');
 
 
 let notes = [];
@@ -23,13 +24,13 @@ const add = (title,body) =>{
     index = notes.findIndex((x)=> x.title == title)
     if(index==-1){
         notes.push({title,body});
-        console.log(notes);
         write(file,notes);
+        console.log(chalk.green('note updated'));  
     }else{
         notes[index].body = body;
         write(file,notes);
-        console.log('note updated');
-    }
+        console.log(chalk.green('note updated'));  
+      }
 }
 
 
@@ -45,15 +46,23 @@ const remove = (title) => {
 }
 
 const list = ()=>{
-    var keys = []
-    for(var key in notes)
-    {
-        keys.push(key);
-        console.log(keys.values);
+    console.log(chalk.yellow('Your notes'));
+    for(var note of notes){
+        console.log(note.title);
+    }
+}
+
+const read = (titles)=>{
+    index = notes.findIndex((x)=> x.title == titles);
+    for(var note of notes){
+        if(note.title == titles){
+            console.log(note.body);
+        }
     }
 }
 module.exports={
     add,
     list,
-    remove
+    remove,
+    read
 }
